@@ -146,15 +146,43 @@ systemctl start docker
 
 > 启动服务，验证
 
-1、 连接远程的Docker服务器
+1、 构建镜像
+```
+mvn package docker:build
+```
 
-2、 启动服务
+2、 连接远程的Docker服务器
+
+3、 启动服务
 ```
 docker run -d -p 8080:8080 jianing0/docker-by-maven
 ```
 
-## 四、其他问题
+## 四、将镜像推送到DockerHub
+
+推送镜像通俗的说就是类似把代码推送到github一样，这个是把一个完整的应用程序推送到DockerHub，供其他Docker pull与使用。
+
+> 在[DockerHub](https://hub.docker.com)中创建仓库（与pom里的配置相对应）
+
+![新建DockerHub仓库.png](/docs/imgs/新建DockerHub仓库.png)
+
+创建完成后：
+
+![DockerHub仓库创建完成.png](/docs/imgs/DockerHub仓库创建完成.png)
+
+> 在终端中登录（按照提示输入用户名和密码）
+```
+docker login
+```
+
+> 推送（push）镜像至DockerHub
+```
+docker push jianing0/docker-by-maven:latest
+```
+latest是tag，相当于版本号 
+
+## 五、其他问题
 - 镜像的名称只支持英文小写？[refer](https://github.com/spotify/dockerfile-maven/issues/95)
 
-## 五、Refer
+## 六、Refer
 [SpringBoot集成Docker的部署、发布与应用](https://blog.csdn.net/qqhjqs/article/details/79101846)
